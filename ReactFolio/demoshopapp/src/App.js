@@ -1,66 +1,53 @@
 
 import './App.css';
-import Card from './components/Card';
-import ItemDate from './components/ItemDate';
-import Item from './components/Item';
+import Products from './components/Products.js';
+import ProductForm from './components/ProductForm';
+import { useState } from 'react';
+
 
 function App() {
 
-  const responce = [
+  const response = [
 {
-  itemName: "Laptop",
-  itemDay: "17",
-  itemMonth: "march",
-  itemyear: "2024"
+  id: "p1",
+  title: "Book",
+  amount: 500,
+  date: new Date(2024, 3 , 15),
 },
 
 {
-  itemName: "CPu",
-  itemDay: "17",
-  itemMonth: "march",
-  itemyear: "2024"
+  id: "p2",
+  title: "Pen",
+  amount: 60,
+  date: new Date(2024, 3 , 15),
 },
 
 {
-  itemName: "PD",
-  itemDay: "17",
-  itemMonth: "march",
-  itemyear: "2024"
+  id: "p3",
+  title: "Laptop",
+  amount: 65000,
+  date: new Date(2024, 3 , 15),
 },
 
 
   ];
 
-  const itemTwoName = "Calender";
+  
+  const [data, setData] = useState(response);
 
-  return ( 
-    <div>
+  // we passed this func as a prop to child component
+  function newProductHandler(newProduct){
+    console.log("received ", newProduct, "from child component(ProductForm)");
 
-    <Card>
+    // updating data
+    setData([...data, newProduct]);
+  }
 
-    <Item name = {responce[0].itemName} >
-
-Hello , welcome to store
-</Item>
-
-<ItemDate day = {responce[0].itemDay}  month= {responce[0].itemMonth} year = {responce[0].itemyear}></ItemDate>
-
-<Item name = {responce[1].itemName} ></Item>
-<ItemDate day = {responce[1].itemDay}  month= {responce[1].itemMonth} year = {responce[1].itemyear}></ItemDate>
-
-<Item name = {responce[2].itemName} ></Item>
-<ItemDate day = {responce[2].itemDay}  month= {responce[2].itemMonth} year = {responce[2].itemyear}></ItemDate>
-
-    </Card>
-      
-
-
-
+  return (
     <div className="App">
-      Hello World....!
+      <ProductForm newProductHandler={newProductHandler}></ProductForm>
+      <Products products={data}></Products>
     </div>
-    </div>
-    
   );
 }
 
